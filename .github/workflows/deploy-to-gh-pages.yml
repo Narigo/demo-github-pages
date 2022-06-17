@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
     branches:
       - main
+    inputs:
+      name:
+        description: "Person to greet"
+        required: true
+        default: "World"
   push:
     branches:
       - main
@@ -20,6 +25,8 @@ jobs:
       - name: Update page
         run: |
           sh build.sh
+        env:
+          NAME: ${{ inputs.name }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.5
